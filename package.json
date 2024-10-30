@@ -8,5 +8,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^4.23.1",
+    "mysql": "^2.18.1",
+    "restify": "^11.1.0"
+  }
 }
