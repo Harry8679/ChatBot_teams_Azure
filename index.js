@@ -34,25 +34,27 @@ connection.connect((error) => {
 });
 
 // Définition de l'endpoint pour recevoir les messages
-server.post('/api/messages', (req, res) => {
+server.post('/api/messages', (req, res, next) => {
     adapter.processActivity(req, res, async (context) => {
         // Vérifier si le type d'activité est un message
         if (context.activity.type === 'message') {
             // Exemple de requête MySQL
-            connection.query('SELECT message FROM chatbot_responses WHERE id = 1', (error, results) => {
+            connection.query('SELECT message FROM chatbot_responses WHERE id = 1', async (error, results) => {
                 if (error) {
                     console.error('Erreur de requête MySQL:', error);
-                    context.sendActivity("Désolé, une erreur est survenue lors de la récupération des données.");
+                    await context.sendActivity("Désolé, une erreur est survenue lors de la récupération des données.");
                     return;
                 }
 
                 // Envoyer la réponse au message de l'utilisateur
                 const message = results[0]?.message || "Aucun message trouvé.";
-                context.sendActivity(message);
+                await context.sendActivity(message);
             });
         } else {
             // Gérer d'autres types d'activité si nécessaire
-            context.sendActivity(`[${context.activity.type} event detected]`);
+            await context.sendActivity(`[${context.activity.type} event detected]`);
         }
     });
+    next();  // Appel à next() pour indiquer à Restify que la requête est complète
 });
+
