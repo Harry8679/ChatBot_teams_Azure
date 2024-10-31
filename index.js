@@ -16,7 +16,6 @@ const adapter = new BotFrameworkAdapter({
     appPassword: process.env.MicrosoftAppPassword
 });
 
-// DATABASE_URL="mysql://root:root@127.0.0.1:8889/freelance-app?serverVersion=8.0.32&charset=utf8mb4"
 // Configuration de la connexion à MySQL
 const connection = mysql.createConnection({
     host: '127.0.0.1',       // Adresse de la base de données
@@ -25,12 +24,6 @@ const connection = mysql.createConnection({
     password: 'root',        // Mot de passe de la base de données
     database: 'freelance-app' // Nom de la base de données
 });
-// const connection = mysql.createConnection({
-//     host: '127.0.0.1',       // Adresse de la base de données
-//     user: 'root',      // Nom d'utilisateur de la base de données
-//     password: 'root',     // Mot de passe de la base de données
-//     database: 'freelance-app'   // Nom de la base de données
-// });
 
 // Établissement de la connexion MySQL
 connection.connect((error) => {
@@ -65,4 +58,3 @@ server.post('/api/messages', (req, res, next) => {
     });
     next();  // Appel à next() pour indiquer à Restify que la requête est complète
 });
-
