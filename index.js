@@ -1,6 +1,7 @@
 const restify = require('restify');
 const { BotFrameworkAdapter } = require('botbuilder');
 const mysql = require('mysql');
+require('dotenv').config();
 
 // Création du serveur Restify
 const server = restify.createServer();
